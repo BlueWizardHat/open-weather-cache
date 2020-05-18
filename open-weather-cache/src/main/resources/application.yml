@@ -1,0 +1,64 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    net.bluewizardhat: info
+
+#spring:
+#  redis:
+#    host: redis-server
+
+# Actuator info (for internal use)
+info:
+  project:
+    name: "@project.name@"
+    description: "@project.description@"
+    groupId: "@project.groupId@"
+    artifactId: "@project.artifactId@"
+    version: "@project.version@"
+  build:
+    maven: "@maven.version@"
+    time: "@maven.build.timestamp@"
+    #git:
+    #  commit: "@git.commit.id@"
+    #  describe: "@git.commit.id.describe@"
+    system:
+      user: "@user.name@"
+      os: "@os.name@/@os.arch@"
+    java:
+      runtime: "@java.runtime.name@"
+      vm: "@java.vm.name@"
+      version: "@java.version@"
+  runtime:
+    spring:
+      profile: ${spring.profiles.active:default}
+    system:
+      user: ${user.name}
+      os: ${os.name}/${os.arch}
+    java:
+      runtime: ${java.runtime.name}
+      vm: ${java.vm.name}
+      version: ${java.version}
+  configuration:
+    redis:
+      host: ${spring.redis.host}
+
+openweathermap:
+  api:
+    baseurl: https://api.openweathermap.org
+    appid: <insert openweathermap api key here>
+
+---
+spring:
+  profiles: local
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    net.bluewizardhat: debug

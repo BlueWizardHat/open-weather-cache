@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  open-weather-cache:
+    image: java8_skeleton
+    build: ./compose/java8
+    command: /setup/run-jar.sh open-weather-cache.jar redis-server:6379 2
+    ports:
+      - "8080:8080"
+      - "4080:4000"
+    environment:
+      - "JAVA_DEBUG=${JAVA_DEBUG}"
+      - "server.port=8080"
+      - "spring.profiles.active=${SPRING_PROFILES}"
+      # Necessary arguments
+      - "spring.redis.host=redis-server"
+    volumes:
+      - ./open-weather-cache/target/open-weather-cache.jar:/code/open-weather-cache.jar
+    links:
+      - redis-server
+    depends_on:
+      - redis-server
+
+  redis-server:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
